@@ -72,6 +72,7 @@ void loop() {
     TFTdraw(-1);
     buttonMode = !buttonMode;
     switched = 1;
+    delay(200);
   }
   //--------------------------------------------------------------//
 
@@ -154,7 +155,7 @@ void loop() {
   }
   //--------------------------------------------------------------//
 
-  delay(200);
+  delay(50);
 }
 
 boolean xState(int x, int y, int xMid, int yMid, int cutoff) {
