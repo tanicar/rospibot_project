@@ -1,2 +1,7 @@
 # rospibot_project
-Rospibot project's nodes for ROS on Raspberry pi3
+
+This repo contains ROS packages from ROSpiBot project.
+Those packages allow to create and manage a fully autonomous robot which can navigate in urban environments.
+
+Repo by Andrea Fioroni
+University of Perugia, Italy
