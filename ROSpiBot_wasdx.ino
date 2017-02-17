@@ -16,7 +16,7 @@
 #include <TFT.h>
 #include <Keyboard.h>
 
-int cutoff = 50;
+int cutoff = 100;
 int xMid = 6;
 int yMid = -5;
 int x, y;
