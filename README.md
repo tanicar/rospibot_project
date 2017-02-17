@@ -5,13 +5,3 @@ Those packages allow to create and manage a fully autonomous robot which can nav
 
 Repo by Andrea Fioroni
 University of Perugia, Italy
-
-//-------------------------------------------//
-
-//-------------------------------------------//
-//----------- ROSpiBot project --------------//
-//---------- by Andrea Fioroni --------------//
-//-------------------------------------------//
-//--------- andrifiore@gmail.com ------------//
-//-------------------------------------------//
-//-------------------------------------------//
