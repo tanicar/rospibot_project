@@ -24,16 +24,17 @@ class traffic_light:
 
     def __init__(self):
       self.bridge = CvBridge() # setup CVbridge to convert from ImageMessage to CVimage
-      self.image_sub = rospy.Subscriber("image_topic",Image,self.callback) # subscribe to image_topic topic
+      self.image_sub = rospy.Subscriber("image_topic", Image, self.callback) # subscribe to image_topic topic
       self.controlPub = rospy.Publisher('rospibot_network', String, queue_size=10) # publish on rospibot_network topic
+      self.imagePub = rospy.Publisher("red_mask_topic", Image, queue_size=10);	
 
       # semaphore variables
       self.redSemaphore = 0
       self.greenSemaphore = 0
 
       ## color boundaries (bgr format) -> RED
-      self.Rlower = [0, 0, 180] # lower boundaries
-      self.Rupper = [70, 70, 255] # upper boundaries
+      self.Rlower = [30, 30, 180] # lower boundaries
+      self.Rupper = [120, 120, 255] # upper boundaries
       self.Rlower = np.array(self.Rlower, dtype = "uint8")
       self.Rupper = np.array(self.Rupper, dtype = "uint8")
 
@@ -47,8 +48,8 @@ class traffic_light:
       ## suppose you will always find the semaphore
       ## on the top right corner of the image (image will be 160x112)
       self.imin = 0
-      self.imax = 50
-      self.jmin = 100
+      self.imax = 40
+      self.jmin = 110
       self.jmax = 160
 
 
@@ -70,10 +71,12 @@ class traffic_light:
         mask = cv2.inRange(cvImage, self.Glower, self.Gupper) # green boundaries mask
         greenMask = cv2.bitwise_and(cvImage, cvImage, mask = mask) # green filtered image
 
+	self.imagePub.publish(self.bridge.cv2_to_imgmsg(redMask)) # publish the red masked image on the red_mask_topic topic
+
         # wait green semaphore to restart
         if self.redSemaphore == 1: # look for green semaphore only after finding a red one
-            for i in range(self.imin, self.imax, 2):
-                for j in range(self.jmin, self.jmax, 2):
+            for i in range(self.imin, self.imax, 4):
+                for j in range(self.jmin, self.jmax, 4):
                     if greenMask[i][j][1] > 0: # if that pixel is green
                         self.redSemaphore = 0 # reset redSemaphore
                         self.greenSemaphore = 1 # found a greenSemaphore
@@ -82,8 +85,8 @@ class traffic_light:
             self.controlPub.publish("GGG") # send green encoded string to rospibot_network
 
 	self.redSemaphore = 0 # reset redSemaphore each time
-        for i in range(self.imin, self.imax, 2): # look for a red semaphore
-            for j in range(self.jmin, self.jmax, 2):
+        for i in range(self.imin, self.imax, 4): # look for a red semaphore
+            for j in range(self.jmin, self.jmax, 4):
                 if redMask[i][j][2] > 0: # if that pixel is red
                     self.redSemaphore = 1 # found a redSemaphore
         if self.redSemaphore == 1:
@@ -110,5 +113,4 @@ def main(args):
 
 if __name__ == '__main__':
     main(sys.argv)
-
 
