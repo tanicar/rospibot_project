@@ -77,7 +77,8 @@ def talker():
 		brightnessSensor = 0 # no serial port communication available
 		rospy.loginfo("Serial port exception")
 	    camera.brightness = 20 + brightnessSensor # add a +20 cutoff to the brightness level
-	    rospy.loginfo(" Sending an Image Message  \nBrightness level is %sBrightness gain is %d", serialInput, brightnessSensor)
+	    rospy.loginfo(" Sending an Image Message")
+	    #rospy.loginfo(" Brightness level is %sBrightness gain is %d", serialInput, brightnessSensor)
  
 	else:
 	    rospy.loginfo(" Sending an Image Message")
