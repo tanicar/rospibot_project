@@ -1,0 +1,14 @@
+ROS Nodes launch commands
+
+Raspberry pi3 (rosberry indigo):
+- roscore
+- rosrun rospibot_network listener.py  (per controllare i motori)
+- rosrun image_converter talker.py   (pubblica l'immagine della telecamera sul topic)
+- rosrun traffic_light traffic_light_detection.py   (verifica la presenza del semaforo e la comunica a rospibot_network)
+- rosrun traffic_light red_mask_detection.py    (cerca picchi di luce del led sull'immagine)
+- rosrun traffic_light grey_scale_detection.py   (cerca il led rosso sull'immagine)
+
+
+PC (ros indigo):
+- rosrun image_converter listener.py   (visualizza l'immagine della telecamera)
+- rosrun rospibot_network talker.py    (comunica le informazioni per controllare il robot)
