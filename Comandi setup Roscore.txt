@@ -1,0 +1,27 @@
+
+Sul Raspberry
+
+- sudo nano /etc/hosts
+Per modificare il file hosts. Inserisci una riga del tipo:
+192.168.XXX.XXX     nomePC
+sostituendo XXX.XXX con l'indirizzo del tuo pc sulla rete, e nomePC con il nome host che vuoi dare al tuo pc (ricordatelo)
+
+
+
+Sul PC
+
+- sudo nano /etc/hosts
+Per modificare il file hosts. Inserisci una riga del tipo:
+192.168.XXX.XXX     raspberrypi
+sostituendo XXX.XXX con l'indirizzo del raspberry sulla rete
+
+- cd --
+Per tornare alla cartella utente, qualora ti fossi spostato
+
+- sudo nano .bashrc
+Per modificare il file nascosto bashrc.
+Inserisci due righe (o modificale se già ci sono) del tipo:
+export ROS_HOSTNAME=nomePC
+export ROS_MASTER_URI=http://raspberrypi:11311
+È importante che alla prima riga nomePC sia lo stesso che hai inserito nel file hosts del raspi
+e che alla seconda riga ci sia l'hostname del raspi (raspberrypi) che hai inserito nel file hosts del pc
